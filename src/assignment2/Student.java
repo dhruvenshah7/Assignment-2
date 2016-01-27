@@ -70,7 +70,7 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Student{" + '}';
+        return "Student{" + "name=" + name + ", id=" + id + ", gender=" + gender + ", grade=" + grade + '}';
     }
     
 }
