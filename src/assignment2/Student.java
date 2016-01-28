@@ -10,11 +10,15 @@ package assignment2;
  * @author c0665280
  */
 public class Student {
-    
-    private String name,id,gender;
+
+    private String name, id, gender;
     private double grade;
 
     public Student() {
+        name = "";
+        id = "";
+        gender = "";
+        grade = 0.0;
     }
 
     public Student(String name, String id, String gender, double grade) {
@@ -70,7 +74,7 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Student{" + "name=" + name + ", id=" + id + ", gender=" + gender + ", grade=" + grade + '}';
+        return "{\"name\":\"" + getName() + "\",\"id\":\"" + getId() + "\",\"gender\":\"" + getGender() + "\",\"grade\":\"" + getGrade() + "}";
     }
-    
+
 }

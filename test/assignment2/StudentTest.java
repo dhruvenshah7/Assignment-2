@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author c0662834
+ * @author Sunny
  */
 public class StudentTest {
 
@@ -221,8 +221,8 @@ public class StudentTest {
     @Test
     public void testToString() {
         System.out.println("toString");
-        Student instance = new Student();
-        String expResult = "";
+        Student instance = new Student("Dhruven","2834","M",4.0);
+        String expResult = "{\"name\":\"" + instance.getName()  + "\",\"id\":\"" + instance.getId() + "\",\"gender\":\"" + instance.getGender() + "\",\"grade\":\"" + instance.getGrade() +"}";
         String result = instance.toString();
         assertEquals(expResult, result);
 
@@ -232,7 +232,7 @@ public class StudentTest {
     public void testNoArgConstructor() {
         System.out.println("noArgConstructor");
         Student instance = new Student();
-        String expResult = "Student{" + "name=" + ", id=" + ", gender=" + ", grade=" + '}';
+        String expResult = "{\"name\":\"" + instance.getName()  + "\",\"id\":\"" + instance.getId() + "\",\"gender\":\"" + instance.getGender() + "\",\"grade\":\"" + instance.getGrade() +"}";
         String result = instance.toString();
         assertEquals(expResult, result);
     }
@@ -241,7 +241,7 @@ public class StudentTest {
     public void testFullArgConstructor() {
         System.out.println("fullArgConstructor");
         Student instance = new Student("Dhruven", "2834", "M", 4.0);
-        String expResult = "Student{name=Dhruven, id=2834, gender=M, grade=4.0}";
+        String expResult = "{\"name\":\"" + instance.getName()  + "\",\"id\":\"" + instance.getId() + "\",\"gender\":\"" + instance.getGender() + "\",\"grade\":\"" + instance.getGrade() +"}";
         String result = instance.toString();
         assertEquals(expResult, result);
     }
