@@ -122,6 +122,15 @@ public class Course extends Student {
 
     public Map<String, Set<Student>> getGradeMap() {
 
+//        Student s = new Student("Nirat Joshi", "c0664589", "M", 3.05);
+//        students.add(s);
+//        Student s1 = new Student("Rohan", "1234", "M", 2.5);
+//        students.add(s1);
+//        Student s2 = new Student("Mihir", "4567", "M", 1.6);
+//        students.add(s2);
+//        Student s3 = new Student("Dhruven", "1234", "M", 0.8);
+//        students.add(s3);
+
         Map<String, Set<Student>> m = new HashMap<String, Set<Student>>();
 
         Set<Student> stuSetF = new HashSet<Student>();
@@ -131,24 +140,24 @@ public class Course extends Student {
 
         for (int i = 0; i < students.size(); i++) {
             if (students.get(i).getGrade() < 1) {
-                stuSetF.add(this);
+                stuSetF.add(students.get(i));
             }
-            if (students.get(i).getGrade() >=1 && students.get(i).getGrade() < 2) {
-                stuSetC.add(this);
+            else if (students.get(i).getGrade() >= 1 && students.get(i).getGrade() < 2) {
+                stuSetC.add(students.get(i));
             }
-            if (students.get(i).getGrade() >=2 && students.get(i).getGrade() < 3) {
-                stuSetB.add(this);
+            else if (students.get(i).getGrade() >= 2 && students.get(i).getGrade() < 3) {
+                stuSetB.add(students.get(i));
             }
-            if (students.get(i).getGrade() >=3 && students.get(i).getGrade() <= 4) {
-                stuSetA.add(this);
+            else if (students.get(i).getGrade() >= 3 && students.get(i).getGrade() <= 4) {
+                stuSetA.add(students.get(i));
             }
         }
-        
+
         m.put("A", stuSetA);
         m.put("B", stuSetB);
         m.put("C", stuSetC);
         m.put("F", stuSetF);
-                
+
         return m;
 
     }

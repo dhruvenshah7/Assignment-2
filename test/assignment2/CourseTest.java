@@ -6,6 +6,7 @@
 package assignment2;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -326,16 +327,34 @@ public class CourseTest {
     public void testGetGradeMap() {
         System.out.println("getGradeMap");
         st.add(s);
-        Student s1 = new Student("Rohan", "1234", "M", 2.0);
+        Student s1 = new Student("Rohan", "1234", "M", 2.5);
         st.add(s1);
-        
+        Student s2 = new Student("Mihir", "4567", "M", 1.6);
+        st.add(s2);
+        Student s3 = new Student("Dhruven", "1234", "M", 0.8);
+        st.add(s3);
+
         Course instance = new Course(st);
-        
-        Map<String, Set<Student>> expResult = new TreeMap<>();
-        Set<Student> stuSet = new HashSet<Student>();
-        stuSet.add(st.get(0));
-        expResult.put("A", stuSet);
+
+        Map<String, Set<Student>> expResult = new HashMap<String, Set<Student>>();
+
+        Set<Student> stuSetA = new HashSet<Student>();
+        stuSetA.add(s);
+        Set<Student> stuSetB = new HashSet<Student>();
+        stuSetB.add(s1);
+        Set<Student> stuSetC = new HashSet<Student>();
+        stuSetC.add(s2);
+        Set<Student> stuSetF = new HashSet<Student>();
+        stuSetF.add(s3);
+
+        expResult.put("A", stuSetA);
+        expResult.put("B", stuSetB);
+        expResult.put("C", stuSetC);
+        expResult.put("F", stuSetF);
+
+   //     String exp = "{A=[Course{students=[{\"name\":\"Nirat Joshi\",\"id\":\"c0664589\",\"gender\":\"M\",\"grade\":\"3.05}, {\"name\":\"Rohan\",\"id\":\"1234\",\"gender\":\"M\",\"grade\":\"2.5}, {\"name\":\"Mihir\",\"id\":\"4567\",\"gender\":\"M\",\"grade\":\"1.6}, {\"name\":\"Dhruven\",\"id\":\"1234\",\"gender\":\"M\",\"grade\":\"0.8}]}], B=[Course{students=[{\"name\":\"Nirat Joshi\",\"id\":\"c0664589\",\"gender\":\"M\",\"grade\":\"3.05}, {\"name\":\"Rohan\",\"id\":\"1234\",\"gender\":\"M\",\"grade\":\"2.5}, {\"name\":\"Mihir\",\"id\":\"4567\",\"gender\":\"M\",\"grade\":\"1.6}, {\"name\":\"Dhruven\",\"id\":\"1234\",\"gender\":\"M\",\"grade\":\"0.8}]}], C=[Course{students=[{\"name\":\"Nirat Joshi\",\"id\":\"c0664589\",\"gender\":\"M\",\"grade\":\"3.05}, {\"name\":\"Rohan\",\"id\":\"1234\",\"gender\":\"M\",\"grade\":\"2.5}, {\"name\":\"Mihir\",\"id\":\"4567\",\"gender\":\"M\",\"grade\":\"1.6}, {\"name\":\"Dhruven\",\"id\":\"1234\",\"gender\":\"M\",\"grade\":\"0.8}]}], F=[Course{students=[{\"name\":\"Nirat Joshi\",\"id\":\"c0664589\",\"gender\":\"M\",\"grade\":\"3.05}, {\"name\":\"Rohan\",\"id\":\"1234\",\"gender\":\"M\",\"grade\":\"2.5}, {\"name\":\"Mihir\",\"id\":\"4567\",\"gender\":\"M\",\"grade\":\"1.6}, {\"name\":\"Dhruven\",\"id\":\"1234\",\"gender\":\"M\",\"grade\":\"0.8}]}]}";
         Map<String, Set<Student>> result = instance.getGradeMap();
+
         assertEquals(expResult, result);
 
     }
