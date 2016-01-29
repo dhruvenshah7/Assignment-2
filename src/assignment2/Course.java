@@ -6,6 +6,8 @@
 package assignment2;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -40,28 +42,45 @@ public class Course extends Student {
     public void remove(String id) {
 
         int i;
-        for (i = 0; i < students.size(); i++)
-            if (students.get(i).getId().equals(id))
+        for (i = 0; i < students.size(); i++) {
+            if (students.get(i).getId().equals(id)) {
                 students.remove(i);
+            }
+        }
 
     }
 
     public void remove(int position) {
 
+        students.remove(position);
+
     }
 
     public void insert(Student student, int position) {
+
+        students.add(position, student);
 
     }
 
     public Student get(String id) {
 
+        int i;
+        for (i = 0; i < students.size(); i++) {
+            if (students.get(i).getId().equals(id)) {
+                return students.get(i);
+            }
+
+        }
         return null;
 
     }
 
     public Student get(int position) {
-        return null;
+
+        if (position >= students.size() || position < 0) {
+            return null;
+        }
+        return students.get(position);
 
     }
 
@@ -84,16 +103,53 @@ public class Course extends Student {
 
     @Override
     public String toString() {
-        return "Course{" + '}';
+        return "Course{" + "students=" + students + '}';
     }
 
     public Set<Student> getAllByGender(String gender) {
-        return null;
+
+        Set<Student> stuSet = new HashSet<Student>();
+
+        for (int i = 0; i < students.size(); i++) {
+            if (students.get(i).getGender().equals(gender)) {
+                stuSet.add(this);
+            }
+
+        }
+        return stuSet;
 
     }
 
     public Map<String, Set<Student>> getGradeMap() {
-        return null;
+
+        Map<String, Set<Student>> m = new HashMap<String, Set<Student>>();
+
+        Set<Student> stuSetF = new HashSet<Student>();
+        Set<Student> stuSetC = new HashSet<Student>();
+        Set<Student> stuSetB = new HashSet<Student>();
+        Set<Student> stuSetA = new HashSet<Student>();
+
+        for (int i = 0; i < students.size(); i++) {
+            if (students.get(i).getGrade() < 1) {
+                stuSetF.add(this);
+            }
+            if (students.get(i).getGrade() >=1 && students.get(i).getGrade() < 2) {
+                stuSetC.add(this);
+            }
+            if (students.get(i).getGrade() >=2 && students.get(i).getGrade() < 3) {
+                stuSetB.add(this);
+            }
+            if (students.get(i).getGrade() >=3 && students.get(i).getGrade() <= 4) {
+                stuSetA.add(this);
+            }
+        }
+        
+        m.put("A", stuSetA);
+        m.put("B", stuSetB);
+        m.put("C", stuSetC);
+        m.put("F", stuSetF);
+                
+        return m;
 
     }
 }

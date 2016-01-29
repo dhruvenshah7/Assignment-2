@@ -101,7 +101,7 @@ public class CourseTest {
      */
     @Test
     public void testRemove_String() {
-        System.out.println("remove");
+        System.out.println("removeIDString");
         Course instance = new Course(st);
         String id = "c0664589";
         st.add(s);
@@ -117,11 +117,15 @@ public class CourseTest {
      */
     @Test
     public void testRemove_int() {
-        System.out.println("remove");
-        int position = 0;
+        System.out.println("removeInt");
+
         Course instance = new Course(st);
+        int position = 0;
+        st.add(s);
         instance.remove(position);
-        assertEquals(st, instance.getAll());
+        boolean found = instance.getAll().contains(s);
+        assertFalse(found);
+//        assertEquals(st, instance.getAll());
 
     }
 
@@ -132,10 +136,13 @@ public class CourseTest {
     public void testInsert() {
         System.out.println("insert");
 //        Student student = null;
+
         int position = 0;
-        Course instance = new Course();
+        Course instance = new Course(st);
         instance.insert(s, position);
-        assertEquals(st, instance.getAll());
+
+        boolean found = instance.getAll().contains(s);
+        assertTrue(found);
 
     }
 
@@ -143,10 +150,30 @@ public class CourseTest {
     public void testGet() {
 
         System.out.println("get");
+
         Course instance = new Course(st);
         String id = "c0664589";
-        List<Student> expRes = st;
-        List<Student> result = instance.getAll();
+        st.add(s);
+
+        Student expRes = s;
+
+        Student result = instance.get(id);
+        assertEquals(expRes, result);
+    }
+
+    @Test
+    public void testGetWithInvalidID() {
+
+        System.out.println("testGetWithInvalidID");
+
+        Course instance = new Course(st);
+
+        String id = "c0662834";
+        st.add(s);
+
+        Student expRes = null;
+
+        Student result = instance.get(id);
         assertEquals(expRes, result);
     }
 
@@ -155,78 +182,49 @@ public class CourseTest {
 
         System.out.println("GetPosition");
 
-        Student s = new Student();
         Course instance = new Course(st);
 
-        String expResult = null;
-
-        int pos = 1;
-        if (pos >= st.size() || pos <= st.size()) {
-            s = instance.get(pos);
-
-        }
-        assertEquals(expResult, s);
-    }
-
-    @Test
-    public void testGetValidID() {
-
-        System.out.println("getValidID");
-
-        Course instance = new Course(st);
-        List<Student> result = new ArrayList<Student>();;
-        List<Student> expResult = instance.getAll();
-
-        int pos = 1;
-
-        if (st.contains(s)) {
-            result = instance.getAll();
-
-        }
-        assertEquals(expResult, result);
-    }
-
-    @Test
-    public void testGetInValidID() {
-
-        System.out.println("GetInvalidID");
-        Course instance = new Course(st);
-        List<Student> result2 = new ArrayList<Student>();
-
-        String result = "Z123";
-        List<Student> expResult = null;
-
-        if (st.contains(result)) {
-
-        } else {
-            result2 = null;
-        }
-        assertEquals(expResult, result2);
-    }
-
-    /**
-     * Test of get method, of class Course.
-     */
-    @Test
-    public void testGet_String() {
-        System.out.println("get");
-        String id = "";
-        Course instance = new Course();
-        Student expResult = null;
-        Student result = instance.get(id);
-        assertEquals(expResult, result);
-
-    }
-
-    /**
-     * Test of get method, of class Course.
-     */
-    @Test
-    public void testGet_int() {
-        System.out.println("get");
         int position = 0;
-        Course instance = new Course();
+
+        st.add(s);
+
+        Student expRes = s;
+
+        Student result = instance.get(position);
+        assertEquals(expRes, result);
+    }
+
+    @Test
+    public void testGetWithInvalidPos() {
+
+        System.out.println("testGetWithInvalidPos");
+
+        Course instance = new Course(st);
+
+        st.add(s);
+
+        int position = 2;
         Student expResult = null;
+
+        Student result = instance.get(position);
+
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of get method, of class Course.
+     */
+    @Test
+    public void testGetWithLessThanZeroPos() {
+        System.out.println("getWithLessThanZeroPos");
+
+        Course instance = new Course(st);
+        st.add(s);
+
+        int position = -1;
+
+        Student expResult = null;
+
         Student result = instance.get(position);
         assertEquals(expResult, result);
 
@@ -239,7 +237,7 @@ public class CourseTest {
     public void testEquals() {
         System.out.println("equals");
         Object obj = null;
-        Course instance = new Course();
+        Course instance = new Course(st);
         boolean expResult = false;
         boolean result = instance.equals(obj);
         assertEquals(expResult, result);
@@ -247,26 +245,38 @@ public class CourseTest {
     }
 
     @Test
-    public void testEqualsWithArgConstructor() {
-        System.out.println("equals");
+    public void testEqualsWithSameList() {
+        System.out.println("testEqualsWithSameList");
+
+        st.add(s);
+
+        Course instance = new Course(st);
+
+        Course c = new Course(st);
 
         boolean expResult = true;
-        boolean result = false;
 
-        Student s3 = new Student("Mihir", "c0665280", "M", 3.54);
-        List<Student> s1 = new ArrayList<Student>();
-        s3.setName("Mihir");
-        s3.setId("2834");
-        s3.setGender("M");
-        s3.setGrade(4.0);
-        s1.add(s3);
+        boolean result = instance.equals(c);
+        assertEquals(expResult, result);
+    }
 
-        Course c1 = new Course(s1);
-        Course c2 = new Course(s1);
+    @Test
+    public void testEqualsWithDiffList() {
+        System.out.println("testEqualsWithDiffList");
 
-        if (c1.equals(c2)) {
-            result = true;
-        }
+        st.add(s);
+        st.add(new Student("Rohan", "1234", "M", 2.0));
+        Course instance = new Course(st);
+
+        List<Student> st1 = new ArrayList<Student>();
+
+        st1.add(new Student("Dhruv", "2834", "M", 4.0));
+
+        Course c = new Course(st1);
+
+        boolean expResult = true;
+
+        boolean result = instance.equals(c);
         assertEquals(expResult, result);
     }
 
@@ -276,8 +286,9 @@ public class CourseTest {
     @Test
     public void testToString() {
         System.out.println("toString");
+        st.add(s);
         Course instance = new Course(st);
-        String expResult = "[\n" + "\t{ \"name\" : \"Nirat Joshi\", \"id\" : \"c0664589\", \"gender\" : \"M\", \"grade\" : 3.05 }" + "\n]";
+        String expResult = "Course{students=[{\"name\":\"Nirat Joshi\",\"id\":\"c0664589\",\"gender\":\"M\",\"grade\":\"3.05}]}";
         String result = instance.toString();
         assertEquals(expResult, result);
 
@@ -289,12 +300,22 @@ public class CourseTest {
     @Test
     public void testGetAllByGender() {
         System.out.println("getAllByGender");
+
+        st.add(s);
+        Student s1 = new Student("Rohan", "1234", "M", 2.0);
+        st.add(s1);
+
         String gender = "M";
         Course instance = new Course(st);
+
         Set<Student> expResult = new HashSet<Student>();
         expResult.add(s);
+        expResult.add(s1);
+
+        String exp = "[Course{students=[{\"name\":\"Nirat Joshi\",\"id\":\"c0664589\",\"gender\":\"M\",\"grade\":\"3.05}, {\"name\":\"Rohan\",\"id\":\"1234\",\"gender\":\"M\",\"grade\":\"2.0}]}]";
+
         Set<Student> result = instance.getAllByGender(gender);
-        assertEquals(expResult, result);
+        assertEquals(exp, result.toString());
 
     }
 
@@ -304,7 +325,12 @@ public class CourseTest {
     @Test
     public void testGetGradeMap() {
         System.out.println("getGradeMap");
+        st.add(s);
+        Student s1 = new Student("Rohan", "1234", "M", 2.0);
+        st.add(s1);
+        
         Course instance = new Course(st);
+        
         Map<String, Set<Student>> expResult = new TreeMap<>();
         Set<Student> stuSet = new HashSet<Student>();
         stuSet.add(st.get(0));
